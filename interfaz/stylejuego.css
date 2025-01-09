@@ -1,0 +1,44 @@
+*{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+}
+.principal{
+      width: 99%;
+      height: 80vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.tablero-grid{
+
+      margin-top: 10em;
+      width: 80%;
+      height: 90vh;
+
+      display: grid;
+      
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      
+}
+.tablero-grid>.fila{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      border: solid;
+}
+.fila>*{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+      color: white;
+      border: solid slategray;
+}
+.manzana{
+      background: green;
+      width: 80%;
+      height: 80%;
+}
