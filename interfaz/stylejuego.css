@@ -39,6 +39,12 @@
 }
 .manzana{
       background: green;
+      width: 50%;
+      height: 50%;
+      
+}
+.snake{
+      background: rgb(128, 0, 0);
       width: 80%;
       height: 80%;
 }

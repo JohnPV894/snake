@@ -30,7 +30,7 @@ function posicionManzana(tablero) {
 let tb = crearTablero();
 posicionManzana(tb);
 
-function moverSnake(tablero,dirreccion,largo){
+function moverSnake(tablero,dirreccion){
       //La funcion indexOf devuelve -1 siempre que no encuentra el elemento que busca
       let pocisiones=[]
       let ejeY;
@@ -39,8 +39,7 @@ function moverSnake(tablero,dirreccion,largo){
             if(tablero[i].indexOf("snake")!=-1){
                   ejeY=i;
                   ejeX=tablero[i].indexOf("snake");
-                  //console.log("encontrado en "+i+" "+tablero[i].indexOf("snake"));
-                  
+                  tablero[ejeY][ejeX]=null;
             }
       }
       if (dirreccion=="w") {
@@ -62,3 +61,44 @@ function moverSnake(tablero,dirreccion,largo){
 }
 tb=moverSnake(tb,"s");
 moverSnake(tb,"s");
+
+function pintarTablero(tablero) {
+      $(".tablero-grid").empty();
+      $(".tablero-grid").append(`                  
+                  <div class="fila">
+                        <div>${tablero[0][0]}</div><div>${tablero[0][1]}</div><div>${tablero[0][2]}</div><div>${tablero[0][3]}</div><div>${tablero[0][4]}</div><div>${tablero[0][5]}</div><div>${tablero[0][6]}</div><div>${tablero[0][7]}</div>
+                  </div>
+                  <div class="fila">
+                        <div>${tablero[1][0]}</div><div>${tablero[1][1]}</div><div>${tablero[1][2]}</div><div>${tablero[1][3]}</div><div>${tablero[1][4]}</div><div>${tablero[1][5]}</div><div>${tablero[1][6]}</div><div>${tablero[1][7]}</div>
+                  </div>
+                  <div class="fila">
+                         <div>${tablero[2][0]}</div><div>${tablero[2][1]}</div><div>${tablero[2][2]}</div><div>${tablero[2][3]}</div><div>${tablero[2][4]}</div><div>${tablero[2][5]}</div><div>${tablero[2][6]}</div><div>${tablero[2][7]}</div>
+                  </div>
+                  <div class="fila">
+                         <div>${tablero[3][0]}</div><div>${tablero[3][1]}</div><div>${tablero[3][2]}</div><div>${tablero[3][3]}</div><div>${tablero[3][4]}</div><div>${tablero[3][5]}</div><div>${tablero[3][6]}</div><div>${tablero[3][7]}</div>
+                  </div>
+                  <div class="fila">
+                         <div>${tablero[4][0]}</div><div>${tablero[4][1]}</div><div>${tablero[4][2]}</div><div>${tablero[4][3]}</div><div>${tablero[4][4]}</div><div>${tablero[4][5]}</div><div>${tablero[4][6]}</div><div>${tablero[4][7]}</div>
+                  </div>
+                  <div class="fila">
+                         <div>${tablero[5][0]}</div><div>${tablero[5][1]}</div><div>${tablero[5][2]}</div><div>${tablero[5][3]}</div><div>${tablero[5][4]}</div><div>${tablero[5][5]}</div><div>${tablero[5][6]}</div><div>${tablero[5][7]}</div>
+                  </div>
+                  <div class="fila">
+                         <div>${tablero[6][0]}</div><div>${tablero[6][1]}</div><div>${tablero[6][2]}</div><div>${tablero[6][3]}</div><div>${tablero[6][4]}</div><div>${tablero[6][5]}</div><div>${tablero[6][6]}</div><div>${tablero[6][7]}</div>
+                  </div>
+                  <div class="fila">
+                         <div>${tablero[7][0]}</div><div>${tablero[7][1]}</div><div>${tablero[7][2]}</div><div>${tablero[7][3]}</div><div>${tablero[7][4]}</div><div>${tablero[7][5]}</div><div>${tablero[7][6]}</div><div>${tablero[7][7]}</div>
+                  </div>`);
+      for (let i = 0; i < tablero.length; i++) {
+            for (let j = 0; j < tablero[i].length; j++) {
+                  if(tablero[i][j]=="snake"){
+                        $(`.fila:nth-child(${i})>div:nth-child(${j})`).append("<div class='snake'></div>");
+                  }
+                  if (tablero[i][j]=="manzana") {
+                        $(`.fila:nth-child(${i})>div:nth-child(${j})`).append("<div class='manzana'></div>");
+                  }
+            }
+            
+      }
+      return tablero;
+}

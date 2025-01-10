@@ -6,7 +6,7 @@ function crearTablero() {
       for(let i=0 ; i<8 ; i++){
             tablero[i]=Array(8);
       }
-      tablero[4][4]="snake"
+      tablero[3][3]="snake"
       return tablero;
 }
 
@@ -24,7 +24,7 @@ function posicionManzana(tablero) {
       }
       let posicion =Math.floor(Math.random()*posicionesLibres.length);
       tablero[posicionesLibres[posicion][0]][posicionesLibres[posicion][1]]="manzana";
-      console.log(tablero);
+      //console.log(tablero);
       return tablero;
   }
 
@@ -33,100 +33,102 @@ function posicionManzana(tablero) {
 //recorre la matriz y pinta los correspondientes elementos
 function pintarTablero(tablero) {
       $(".tablero-grid").empty();
-      $(".tablero-grid").append(`                  <div class="fila">
-                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+      $(".tablero-grid").append(`                  
+                  <div class="fila">
+                        <div>${tablero[0][0]}</div><div>${tablero[0][1]}</div><div>${tablero[0][2]}</div><div>${tablero[0][3]}</div><div>${tablero[0][4]}</div><div>${tablero[0][5]}</div><div>${tablero[0][6]}</div><div>${tablero[0][7]}</div>
                   </div>
                   <div class="fila">
-                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                        <div>${tablero[1][0]}</div><div>${tablero[1][1]}</div><div>${tablero[1][2]}</div><div>${tablero[1][3]}</div><div>${tablero[1][4]}</div><div>${tablero[1][5]}</div><div>${tablero[1][6]}</div><div>${tablero[1][7]}</div>
                   </div>
                   <div class="fila">
-                         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                         <div>${tablero[2][0]}</div><div>${tablero[2][1]}</div><div>${tablero[2][2]}</div><div>${tablero[2][3]}</div><div>${tablero[2][4]}</div><div>${tablero[2][5]}</div><div>${tablero[2][6]}</div><div>${tablero[2][7]}</div>
                   </div>
                   <div class="fila">
-                         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                         <div>${tablero[3][0]}</div><div>${tablero[3][1]}</div><div>${tablero[3][2]}</div><div>${tablero[3][3]}</div><div>${tablero[3][4]}</div><div>${tablero[3][5]}</div><div>${tablero[3][6]}</div><div>${tablero[3][7]}</div>
                   </div>
                   <div class="fila">
-                         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                         <div>${tablero[4][0]}</div><div>${tablero[4][1]}</div><div>${tablero[4][2]}</div><div>${tablero[4][3]}</div><div>${tablero[4][4]}</div><div>${tablero[4][5]}</div><div>${tablero[4][6]}</div><div>${tablero[4][7]}</div>
                   </div>
                   <div class="fila">
-                         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                         <div>${tablero[5][0]}</div><div>${tablero[5][1]}</div><div>${tablero[5][2]}</div><div>${tablero[5][3]}</div><div>${tablero[5][4]}</div><div>${tablero[5][5]}</div><div>${tablero[5][6]}</div><div>${tablero[5][7]}</div>
                   </div>
                   <div class="fila">
-                          <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                         <div>${tablero[6][0]}</div><div>${tablero[6][1]}</div><div>${tablero[6][2]}</div><div>${tablero[6][3]}</div><div>${tablero[6][4]}</div><div>${tablero[6][5]}</div><div>${tablero[6][6]}</div><div>${tablero[6][7]}</div>
                   </div>
                   <div class="fila">
-                         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                         <div>${tablero[7][0]}</div><div>${tablero[7][1]}</div><div>${tablero[7][2]}</div><div>${tablero[7][3]}</div><div>${tablero[7][4]}</div><div>${tablero[7][5]}</div><div>${tablero[7][6]}</div><div>${tablero[7][7]}</div>
                   </div>`);
       for (let i = 0; i < tablero.length; i++) {
             for (let j = 0; j < tablero[i].length; j++) {
                   if(tablero[i][j]=="snake"){
-                        $(`.fila:nth-child(${i})>div:nth-child(${j})`).css("background-color", "red");
+                        $(`.fila:nth-child(${i+1})>div:nth-child(${j+1})`).empty()
+                        $(`.fila:nth-child(${i+1})>div:nth-child(${j+1})`).append("<div class='snake'>snake</div>");
                   }
                   if (tablero[i][j]=="manzana") {
-                        $(`.fila:nth-child(${i})>div:nth-child(${j})`).append("<div class='manzana'></div>");
+                        $(`.fila:nth-child(${i+1})>div:nth-child(${j+1})`).append("<div class='manzana'></div>");
                   }
             }
             
       }
+
 }
 
 function moverSnake(tablero,dirreccion){
       //La funcion indexOf devuelve -1 siempre que no encuentra el elemento que busca
+      let pocisiones=[]
       let ejeY;
       let ejeX;
       for (let i = 0; i < tablero.length; i++) {
             if(tablero[i].indexOf("snake")!=-1){
                   ejeY=i;
                   ejeX=tablero[i].indexOf("snake");
-                  //console.log("encontrado en "+i+" "+tablero[i].indexOf("snake"));
+                  console.log(ejeX+" "+ejeY+" EJEX Y EJEY");
                   
+                  tablero[ejeY][ejeX]=undefined;
             }
       }
       if (dirreccion=="w") {
-            ejeY-=1;
+            ejeY=ejeY-1;
       }
-      if (dirreccion=="a") {
-            ejeX-=1;
+      else if (dirreccion=="a") {
+            ejeX=ejeX-1;
       }
-      if (dirreccion=="s") {
-            ejeY+=1;
+      else if (dirreccion=="s") {
+            ejeY=ejeY+1;
       }
-      if (dirreccion=="d") {
-            ejeX+=1;
+      else if (dirreccion=="d") {
+            ejeX=ejeX+1;
       }
-      
       tablero[ejeY][ejeX]="snake";
+
+      
       return tablero;
 }
 let tb = crearTablero();
+
+console.log(tb);
+
 let tba = posicionManzana(tb);
 //Crear un objeto serpiente con {Dirrecion, largo, vivo}
-let ejeY = 4;
-let ejeX = 4;
+
+
+
+//Jquery
 $(document).ready(function () {
-      pintarTablero(tba)
+      let entradaDireccion;
+      ;
+
       
       let movimientos = ["w","a","s","d"]
-      $("*").keypress(function (e) { 
+      $("*").keyup(function (e) { 
             if (!movimientos.includes(e.key.toLowerCase())) {
-                  return;
-                  
+                  return;   
             }
             console.log(e.key);
-            let entrada = e.key.toLowerCase();
-            if (entrada=="w") {
-                  ejeY-=1;
-            }
-            if (entrada=="a") {
-                  ejeX-=1;
-            }
-            if (entrada=="s") {
-                  ejeY+=1;
-            }
-            if (entrada=="d") {
-                  ejeX+=1;
-            }
-            $(`.fila:nth-child(${ejeY})>div:nth-child(${ejeX})`).css("background-color", "red");
+             entradaDireccion = e.key.toLowerCase();
+            moverSnake(tba,entradaDireccion);
+            pintarTablero(tba);
             
       });
+      setInterval( pintarTablero(tba),600)
 });
