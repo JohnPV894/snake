@@ -16,35 +16,40 @@
 .tablero-grid{
 
       margin-top: 10em;
-      width: 80%;
+      width: 70%;
       height: 90vh;
-
       display: grid;
-      
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows:  repeat(10,1fr);
+
       
 }
 .tablero-grid>.fila{
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+      grid-template-columns:  repeat(10,1fr);
       border: solid;
+}
+.fila:nth-child(4)>:nth-child(4){
+      font-size: 20px;
 }
 .fila>*{
       display: flex;
       justify-content: center;
       align-items: center;
       background: black;
-      color: white;
+      color: rgb(0, 0, 0);
       border: solid slategray;
 }
 .manzana{
-      background: green;
+      background: rgb(36, 128, 0);
+      color: white;
       width: 50%;
       height: 50%;
       
 }
-.snake{
+.snake {
       background: rgb(128, 0, 0);
+      color: white;
       width: 80%;
       height: 80%;
 }
