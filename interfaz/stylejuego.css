@@ -16,17 +16,16 @@
 .tablero-grid{
 
       margin-top: 10em;
-      width: 70%;
+      width: 65%;
       height: 90vh;
       display: grid;
-      grid-template-rows:  repeat(10,1fr);
+      grid-template-rows: repeat(12,1fr);
 
       
 }
 .tablero-grid>.fila{
       display: grid;
-
-      grid-template-columns:  repeat(10,1fr);
+      grid-template-columns: repeat(12,1fr);
       border: solid;
 }
 .fila:nth-child(4)>:nth-child(4){

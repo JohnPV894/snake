@@ -15,5 +15,5 @@ function obtenerClienteMongoDB()
 
 // Objeto mongo
 $mongo = obtenerClienteMongoDB();
-$bd = $mongo -> selectDatabase("");
+$bd = $mongo -> selectDatabase("snake");
 $coleccionUsuarios = $bd -> selectCollection("puntuaciones");

@@ -1,0 +1,12 @@
+{
+    "name": "johnsaf/snake",
+    "description": "Juego de la serpiente",
+    "authors": [
+        {
+            "name": "John Arenales"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^1.20"
+    }
+}
