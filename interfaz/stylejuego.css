@@ -5,6 +5,12 @@
       padding: 0;
 
 }
+/*Cabezera*/
+header{
+      display: flex;
+      height: 5%;
+      text-align: center;
+}
 .principal{
       width: 99%;
       height: 80vh;

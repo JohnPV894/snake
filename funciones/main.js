@@ -8,7 +8,8 @@ function crearTablero(longitud) {
       for(let i=0 ; i<longitud ; i++){
             tablero[i]=Array(longitud);
       }
-      tablero[4][4]="snake"
+      tablero[4][4]="snake";
+      tablero[5][4]="snake";
 
       return tablero;
 }
@@ -34,10 +35,9 @@ function posicionManzana(tablero) {
 
 //Mover serpiente: Esta funcion deberia recibir una Entrada que cada cierto tiempo se vaya sumando +1 en esa direccion hasta que se cambie de dirreccion 
 function moverSnake(tablero,serpiente){
-
-      console.log("Ejecuanto moverSnake")
-      //console.log(serpiente);
       
+      console.log("Ejecuanto moverSnake")
+      let pocisionesSerpiente=[];
       let ejeY;
       let ejeX;
 
@@ -46,37 +46,53 @@ function moverSnake(tablero,serpiente){
             if(tablero[i].indexOf("snake")!=-1){
                   ejeY = i;
                   ejeX = tablero[i].indexOf("snake");
-                  //console.log(ejeX+" "+ejeY+" EJEX Y EJEY");    
-                  tablero[ejeY][ejeX]=undefined;
+                  pocisionesSerpiente.push([[ejeY][ejeX]])
+                  console.log(pocisionesSerpiente[0]);
+                  
             }
       }
+      if (ejeY != undefined && ejeX != undefined) {
+            tablero[ejeY][ejeX]=undefined;
+            //serpiente.vivo=false;
+            //console.log(" perdista la partida");
+            //return {tablero,serpiente};
+      }else{
+            serpiente.vivo=false;
+            console.log("Chocaste Y perdista la partida");
+            return {tablero,serpiente};
+      }
+
 
       switch (serpiente.dirreccion) {
             case "w":
-                  ejeY=ejeY-1;
+                  ejeY = ejeY-1;
                   break;
             case "a":
-                  ejeX=ejeX-1;
+                  ejeX = ejeX-1;
                   break;
             case "s":
-                  ejeY=ejeY+1;
+                  ejeY = ejeY+1;
                   break;
             case "d":
-                  ejeX=ejeX+1;
+                  ejeX = ejeX+1;
                   break;
       
             default:
                   console.error("Movimiento Invalido")
                   return;
       }
-      if (ejeY == undefined || ejeX == undefined || ejeY < 0 || ejeX < 0  ) {
+
+      if (ejeY == undefined || ejeX == undefined || ejeY < 0 || ejeX < 0 || ejeY > tablero.length || ejeX > tablero[0].length   /*|| tablero[ejeY][ejeX]==undefined */ ) {
             serpiente.vivo=false;
+            desactivarJuego();
             console.log("Chocaste Y perdista la partida");
-            //return [tablero,serpiente];
+            return {tablero,serpiente};
       }
 
-      else if(tablero[ejeY][ejeX]=="manzana") {
+      if(tablero[ejeY][ejeX]=="manzana") {
             serpiente.largo=serpiente.largo+1;
+            $(".puntuacion").empty();
+            $(".puntuacion").append(serpiente.largo);
             tablero=posicionManzana(tablero);
 
             console.log("manzana comida");
@@ -86,10 +102,12 @@ function moverSnake(tablero,serpiente){
 
       tablero[ejeY][ejeX]="snake";
 
-      
       return {tablero,serpiente};
 }
-
+//Terminar 
+function desactivarJuego() {
+      clearInterval(juego)
+}
 //Recibe una matriz OJO la matriz @[[]] debe ya tener posicionada la manzana y la snake
 //vacia el contenedor html <"tablero-grid">
 //recorre la matriz y pinta los correspondientes elementos
@@ -130,38 +148,37 @@ let tba = posicionManzana(crearTablero(12));
 //Crear un objeto serpiente con {Dirrecion, largo, vivo}
 let serpiente ={
       dirreccion:"w",
-      largo:1,
+      largo:0,
       vivo:true
 }
 //Mantener juego "Vivo"
+let juego;
+//Tasa de Refresco del tablero
 
 //Jquery
 $(document).ready(function () {
       pintarTablero(tba);
 
-            let juego=setInterval(
-                  function(){
-                        let objetoContenedor=moverSnake(tba,serpiente);
-                        tba=objetoContenedor.tablero;
-                        serpiente=objetoContenedor.serpiente;
-                        pintarTablero(tba);
-                        console.log("obj:",objetoContenedor);
-                  },750
-            )
-            if (serpiente.vivo==false) {
-                  clearInterval(juego)
-            }
-      
+      juego=setInterval(
+            function(){
+                  if (serpiente.vivo==false) {
+                        desactivarJuego();
+                  }
+                  let objetoContenedor=moverSnake(tba,serpiente);
+                  tba=objetoContenedor.tablero;
+                  serpiente=objetoContenedor.serpiente;
+                  pintarTablero(tba);
+                  //console.log("obj:",objetoContenedor);
+            },250
+      )
 
-      //setInterval(()=>clearInterval(juego),2000);
       $("body").keyup(function (e) { 
-
+            if(e.key=="z"){
+                  desactivarJuego();
+            }
             
             console.log(e.key);
             serpiente.dirreccion = e.key.toLowerCase();
             //moverSnake(tba,entradaDireccion); //Si dejamos esta funcion la serpiente se movera cada que presionemos una entrada valida
-
- 
- 
       });
 });

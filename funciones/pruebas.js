@@ -277,4 +277,6 @@ function pintarTablero(tablero) {
       //}
 
 }
-pintarTablero(tb);
+//pintarTablero(tb);
+
+console.log(tb[-4][4])
