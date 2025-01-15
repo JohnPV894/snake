@@ -81,6 +81,65 @@ function moverSerpiente(tablero,entradaDireccion){
  */
 
 let tb = crearTablero();
+function moverSnake(tablero,serpiente) {
+      let ejeY;
+      let ejeX;
+      //Ubicar las coordenadas de la matriz en donde se encuentra "snake" X
+
+      //Almanecarlas en @posicionesSerpiente[]
+      let posicionesSerpiente=serpiente.pocisiones;
+      let cabezaSerpiente=serpiente.pocisiones[0];
+      //Convertir la entrada en una coordenada (Operar La cabeza de la serpiente 
+      //)
+      switch (serpiente.dirreccion) {
+            case "w":
+                  ejeY = ejeY-1;
+                  break;
+            case "a":
+                  ejeX = ejeX-1;
+                  break;
+            case "s":
+                  ejeY = ejeY+1;
+                  break;
+            case "d":
+                  ejeX = ejeX+1;
+                  break;
+      
+            default:
+                  console.error("Movimiento Invalido")
+                  return;
+      }
+      //Pintar la serpiente en el tablero
+      //Devolver el tablero y la serpiente pero actualizar el tablero
+
+      pocisionesSerpiente.push([ejeY,ejeX]);
+      
+      if (!( ejeY < 0 || ejeX < 0 || ejeY >= tablero.length || ejeX >= tablero[0].length)) {
+            while (pocisionesSerpiente.length>serpiente.largo) {
+                  tablero[pocisionesSerpiente[0][0]][pocisionesSerpiente[0][1]]=undefined;
+                  pocisionesSerpiente.shift();
+            }
+            console.log("despues",pocisionesSerpiente.length);
+            for (let i = 0; i < pocisionesSerpiente.length; i++) {
+                  tablero[pocisionesSerpiente[i][0]][pocisionesSerpiente[i][1]]="snake"; 
+            }
+
+            
+      }else{
+            serpiente.vivo=false;
+            desactivarJuego();
+            console.log("Chocaste Y perdista la partida");
+            return {tablero,serpiente};
+      }
+
+
+
+
+      //tablero[ejeY][ejeX]="snake";
+
+      return {tablero,serpiente};
+}
+/**
 function moverSnake(tablero,serpiente){
       
       console.log("Ejecuanto moverSnake")
@@ -90,7 +149,7 @@ function moverSnake(tablero,serpiente){
 
       //La funcion indexOf devuelve -1 siempre que no encuentra el elemento que busca
       for (let i = 0; i < tablero.length; i++) {
-            for (let j = 0; j < tablero[0].length; j++) {
+            for (let j = 0; j < tablero[i].length; j++) {
                   if(tablero[i][j]=="snake"){
                         ejeY = i;
                         ejeX = j;
@@ -132,9 +191,9 @@ function moverSnake(tablero,serpiente){
                   return;
       }
       pocisionesSerpiente.push([ejeY,ejeX]);
+      pocisionesSerpiente.shift()
+      if (!(ejeY == undefined || ejeX == undefined || ejeY < 0 || ejeX < 0 || ejeY > tablero.length || ejeX > tablero[0].length)   /*|| tablero[ejeY][ejeX]==undefined / ) {
 
-      if (!(ejeY == undefined || ejeX == undefined || ejeY < 0 || ejeX < 0 || ejeY > tablero.length || ejeX > tablero[0].length)   /*|| tablero[ejeY][ejeX]==undefined */ ) {
-            pocisionesSerpiente.shift()
             console.log("despues",pocisionesSerpiente);
             for (let i = 0; i < pocisionesSerpiente.length; i++) {
                   tablero[pocisionesSerpiente[i][0]][pocisionesSerpiente[i][1]]="snake"; 
@@ -159,16 +218,27 @@ function moverSnake(tablero,serpiente){
       }
 
 
-      tablero[ejeY][ejeX]="snake";
+      //tablero[ejeY][ejeX]="snake";
 
       return {tablero,serpiente};
 }
-
+ */
 let serpiente ={
       dirreccion:"w",
       largo:0,
-      vivo:true
+      vivo:true,
+      posiciones:[[4,4][5,4]]
 }
 console.log(tb);
 
-console.log(moverSnake(tb,serpiente));
+
+let obj = moverSnake(tb,serpiente)
+console.log(obj);
+obj =moverSnake(obj.tablero,obj.serpiente)
+console.log(obj);
+obj.serpiente.dirreccion="w";
+obj =moverSnake(obj.tablero,obj.serpiente)
+console.log(obj);
+obj =moverSnake(obj.tablero,obj.serpiente)
+console.log(obj);
+ 

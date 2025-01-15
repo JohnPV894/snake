@@ -8,8 +8,8 @@ function crearTablero(longitud) {
       for(let i=0 ; i<longitud ; i++){
             tablero[i]=Array(longitud);
       }
-      tablero[4][4]="snake";
-      tablero[5][4]="snake";
+      //tablero[4][4]="snake";
+      //tablero[5][4]="snake";
 
       return tablero;
 }
@@ -35,74 +35,11 @@ function posicionManzana(tablero) {
 
 //Mover serpiente: Esta funcion deberia recibir una Entrada que cada cierto tiempo se vaya sumando +1 en esa direccion hasta que se cambie de dirreccion 
 function moverSnake(tablero,serpiente){
-      
-      console.log("Ejecuanto moverSnake")
-      let pocisionesSerpiente=[];
-      let ejeY;
-      let ejeX;
-
-      //La funcion indexOf devuelve -1 siempre que no encuentra el elemento que busca
-      for (let i = 0; i < tablero.length; i++) {
-            if(tablero[i].indexOf("snake")!=-1){
-                  ejeY = i;
-                  ejeX = tablero[i].indexOf("snake");
-                  pocisionesSerpiente.push([[ejeY][ejeX]])
-                  console.log(pocisionesSerpiente[0]);
-                  
-            }
-      }
-      if (ejeY != undefined && ejeX != undefined) {
-            tablero[ejeY][ejeX]=undefined;
-            //serpiente.vivo=false;
-            //console.log(" perdista la partida");
-            //return {tablero,serpiente};
-      }else{
-            serpiente.vivo=false;
-            console.log("Chocaste Y perdista la partida");
-            return {tablero,serpiente};
-      }
-
-
-      switch (serpiente.dirreccion) {
-            case "w":
-                  ejeY = ejeY-1;
-                  break;
-            case "a":
-                  ejeX = ejeX-1;
-                  break;
-            case "s":
-                  ejeY = ejeY+1;
-                  break;
-            case "d":
-                  ejeX = ejeX+1;
-                  break;
-      
-            default:
-                  console.error("Movimiento Invalido")
-                  return;
-      }
-
-      if (ejeY == undefined || ejeX == undefined || ejeY < 0 || ejeX < 0 || ejeY > tablero.length || ejeX > tablero[0].length   /*|| tablero[ejeY][ejeX]==undefined */ ) {
-            serpiente.vivo=false;
-            desactivarJuego();
-            console.log("Chocaste Y perdista la partida");
-            return {tablero,serpiente};
-      }
-
-      if(tablero[ejeY][ejeX]=="manzana") {
-            serpiente.largo=serpiente.largo+1;
-            $(".puntuacion").empty();
-            $(".puntuacion").append(serpiente.largo);
-            tablero=posicionManzana(tablero);
-
-            console.log("manzana comida");
+      for (let i = 0; i < serpiente.posicion; i++) {
+            serpiente[i]
             
       }
-
-
-      tablero[ejeY][ejeX]="snake";
-
-      return {tablero,serpiente};
+      return{tablero,serpiente}
 }
 
 //Terminar 
@@ -148,9 +85,10 @@ function pintarTablero(tablero) {
 let tba = posicionManzana(crearTablero(12));
 //Crear un objeto serpiente con {Dirrecion, largo, vivo}
 let serpiente ={
-      dirreccion:"w",
-      largo:0,
-      vivo:true
+      dirreccion:"",
+      largo:2,
+      vivo:true,
+      posicion:[[4,4][5,4]]
 }
 //Mantener juego "Vivo"
 let juego;
