@@ -104,6 +104,7 @@ function moverSnake(tablero,serpiente){
 
       return {tablero,serpiente};
 }
+
 //Terminar 
 function desactivarJuego() {
       clearInterval(juego)
